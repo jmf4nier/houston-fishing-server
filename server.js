@@ -36,7 +36,7 @@ const checkJwt = jwt({
 // Define an endpoint that must be called with an access token
 app.get("/api/external", checkJwt, (req, res) => {
     res.send({
-        msg: "Your Access Token was successfully validated!"
+        msg: "I am your server"
     });
 });
 app.use(cors());
@@ -52,14 +52,16 @@ const connection = mongoose.connection;
 connection.once("open", () => {
     console.log("MongoDB database connection established successfully");
 });
-
-const lakesRouter = require("./routes/lakes.js");
-const usersRouter = require("./routes/users.js");
-const messagesRouter = require("./routes/messages.js");
+app.get('/lakes', (req, res)=>{
+    res.send
+})
+const lakesRouter = require("./routes/lakes.js").default;
+// const usersRouter = require("./routes/users.js").default;
+// const messagesRouter = require("./routes/messages.js").default;
 
 app.use("/lakes", lakesRouter);
-app.use("/users", usersRouter);
-app.use("/messages", messagesRouter);
+// app.use("/users", usersRouter);
+// app.use("/messages", messagesRouter);
 
 // Start the app
 app.listen(port, () => {

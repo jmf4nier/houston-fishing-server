@@ -1,10 +1,10 @@
 const router = require("express").Router();
-let Message = require("../models/message.model");
+import Message, { find, findByIdAndDelete, findById } from "../models/message.model";
 
 router.get("/", (req, res) => {
   id = req.query.lake_id; //finds id buried in get url params
 
-  Message.find({ lake_id: id })
+  find({ lake_id: id })
     .then(data => res.json(data))
     .catch(err => res.status(400).json({ error: "something happened!" }));
 });
@@ -38,13 +38,13 @@ router.route("/add").post((req, res) => {
 // });
 
 router.route("/:id").delete((req, res) => {
-  Message.findByIdAndDelete(req.params.id)
+  findByIdAndDelete(req.params.id)
     .then(() => res.json("Message deleted."))
     .catch(err => res.status(400).json("Error: " + err));
 });
 
 router.route("/update/:id").post((req, res) => {
-  Message.findById(req.params.id)
+  findById(req.params.id)
     .then(message => {
       message.replies.push(req.body.reply);
 
@@ -56,4 +56,4 @@ router.route("/update/:id").post((req, res) => {
     .catch(err => res.status(400).json("Error: " + err));
 });
 
-module.exports = router;
+export default router;
