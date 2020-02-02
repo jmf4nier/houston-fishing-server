@@ -1,19 +1,18 @@
 const router = require("express").Router();
-import Lake, { find, findById } from "../models/lake.model";
+let Lake = require("../models/lake.model");
 
 router.route("/").get((req, res) => {
-  find()
+  Lake.find()
     .then(lakes => res.json(lakes))
     .catch(err => res.status(400).json("Error: " + err));
 });
 
 router.route("/:id").get((req, res) => {
-  findById(req.params.id)
+  Lake.findById(req.params.id)
     .then(lake => res.json(lake))
     .catch(err => res.status(400).json("Error: " + err));
 });
-export default router;
-
+module.exports = router
 // NOT USED AT THE MOMENT
 
 // router.route('/:id').delete((req, res) => {

@@ -1,5 +1,5 @@
 const router = require("express").Router();
-import Message, { find, findByIdAndDelete, findById } from "../models/message.model";
+const Message = require( "../models/message.model");
 
 router.get("/", (req, res) => {
   id = req.query.lake_id; //finds id buried in get url params
@@ -56,4 +56,4 @@ router.route("/update/:id").post((req, res) => {
     .catch(err => res.status(400).json("Error: " + err));
 });
 
-export default router;
+module.exports = router

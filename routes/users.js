@@ -1,5 +1,5 @@
 const router = require("express").Router();
-import User, { findByCredentials, findById } from "../models/user.model";
+const User = require("../models/user.model");
 
 router.route("/signup").post((req, res) => {
     console.log(req.body);
@@ -23,7 +23,7 @@ router.route("/signup").post((req, res) => {
 router.route("/login").post(async (req, res) => {
     try {
         const { email, password } = req.body;
-        const user = await findByCredentials(email, password);
+        const user = await User.findByCredentials(email, password);
         console.log('successful login')
         const token = await user.generateAuthToken();
         const username = user.username;
@@ -42,7 +42,7 @@ router.route("/login").post(async (req, res) => {
 // });
 
 router.route("/update/:id").post((req, res) => {
-    findById(req.params.id)
+    User.findById(req.params.id)
         .then(user => {
             user.password = req.body.password;
 
@@ -53,4 +53,4 @@ router.route("/update/:id").post((req, res) => {
         .catch(err => res.status(400).json("Error "));
 });
 
-export default router;
+module.exports = router;

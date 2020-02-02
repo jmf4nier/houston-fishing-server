@@ -55,9 +55,9 @@ connection.once("open", () => {
 app.get('/lakes', (req, res)=>{
     res.send
 })
-const lakesRouter = require("./routes/lakes.js").default;
-// const usersRouter = require("./routes/users.js").default;
-// const messagesRouter = require("./routes/messages.js").default;
+const lakesRouter = require("./routes/lakes.js")
+// const usersRouter = require("./routes/users.js")
+// const messagesRouter = require("./routes/messages.js")
 
 app.use("/lakes", lakesRouter);
 // app.use("/users", usersRouter);
